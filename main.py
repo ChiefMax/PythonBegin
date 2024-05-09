@@ -35,30 +35,30 @@ def update_terminal(content):
 def main():
     stop = False
     showFunnySentence = False
-    
+
     def on_key_event(event):
         nonlocal stop
         nonlocal showFunnySentence
         if event.name == 's':
             stop = True
         elif event.name == 'h':
-            showFunnySentence = True
+            showFunnySentence = not showFunnySentence
 
     keyboard.on_press(on_key_event)
 
     while not stop:
         cpu_usage, memory_usage, network_usage, gpu_usage = get_system_info()
         network_usage = format_bytes(network_usage)
-        content = (f"{'-' * 30}\n"
-                    f"CPU Usage: {cpu_usage}%\n"
-                   f"Memory Usage: {memory_usage}%\n"
-                   f"Network Usage: {network_usage}\n"
-                   f"GPU Usage: {gpu_usage}%\n"
-                   f"{'-' * 30}")
-        update_terminal(content)
         if showFunnySentence:
-            funnyContent = "Fancy seeing you here!"
-            update_terminal(funnyContent)
+            content = "Fancy seeing you here!"
+        else:
+            content = (f"{'-' * 30}\n"
+                        f"CPU Usage: {cpu_usage}%\n"
+                        f"Memory Usage: {memory_usage}%\n"
+                        f"Network Usage: {network_usage}\n"
+                        f"GPU Usage: {gpu_usage}%\n"
+                        f"{'-' * 30}")
+        update_terminal(content)
         time.sleep(1)
 
     keyboard.unhook_all()
