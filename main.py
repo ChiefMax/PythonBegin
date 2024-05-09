@@ -34,11 +34,15 @@ def update_terminal(content):
 
 def main():
     stop = False
-
+    showFunnySentence = False
+    
     def on_key_event(event):
         nonlocal stop
+        nonlocal showFunnySentence
         if event.name == 's':
             stop = True
+        elif event.name == 'h':
+            showFunnySentence = True
 
     keyboard.on_press(on_key_event)
 
@@ -52,6 +56,9 @@ def main():
                    f"GPU Usage: {gpu_usage}%\n"
                    f"{'-' * 30}")
         update_terminal(content)
+        if showFunnySentence:
+            funnyContent = "Fancy seeing you here!"
+            update_terminal(funnyContent)
         time.sleep(1)
 
     keyboard.unhook_all()
